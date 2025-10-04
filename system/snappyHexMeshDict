@@ -1,0 +1,225 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      snappyHexMeshDict;
+}
+castellatedMesh true;
+snap            true;
+addLayers       true;
+geometry
+{
+  atmosphere
+  {
+    type triSurfaceMesh;
+    file "atmosphere.stl";
+    regions
+    {
+      atmosphere
+      {
+        name atmosphere;
+      }
+    }
+  }
+  atmosphere2
+  {
+    type triSurfaceMesh;
+    file "atmosphere2.stl";
+    regions
+    {
+      atmosphere2
+      {
+        name atmosphere2;
+      }
+    }
+  }
+  side
+  {
+    type triSurfaceMesh;
+    file "side.stl";
+    regions
+    {
+      side
+      {
+        name side;
+      }
+    }
+  }
+  walls
+  {
+    type triSurfaceMesh;
+    file "walls.stl";
+    regions
+    {
+      walls
+      {
+        name walls;
+      }
+    }
+  }
+}
+castellatedMeshControls
+{
+  features (
+    {
+      file "atmosphere.eMesh";
+      level 1;
+    }
+    {
+      file "atmosphere2.eMesh";
+      level 1;
+    }
+    {
+      file "side.eMesh";
+      level 1;
+    }
+    {
+      file "walls.eMesh";
+      level 1;
+    }
+  );
+  refinementSurfaces
+  {
+    atmosphere
+    {
+      level (1 1);
+      regions
+      {
+        atmosphere
+        {
+          level (1 1);
+          patchInfo
+          {
+            type patch;
+          }
+        }
+      }
+    }
+    atmosphere2
+    {
+      level (1 1);
+      regions
+      {
+        atmosphere2
+        {
+          level (1 1);
+          patchInfo
+          {
+            type patch;
+          }
+        }
+      }
+    }
+    side
+    {
+      level (1 1);
+      regions
+      {
+        side
+        {
+          level (1 1);
+          patchInfo
+          {
+            type wall;
+          }
+        }
+      }
+    }
+    walls
+    {
+      level (1 1);
+      regions
+      {
+        walls
+        {
+          level (1 1);
+          patchInfo
+          {
+            type wall;
+          }
+        }
+      }
+    }
+  }
+  refinementRegions {}
+  locationInMesh (0 0.03 0);
+  maxLocalCells 100000000;
+  maxGlobalCells 100000000;
+  minRefinementCells 1;
+  nCellsBetweenLevels 3;
+  resolveFeatureAngle 30;
+  allowFreeStandingZoneFaces false;
+}
+snapControls
+{
+  nSolveIter 30;
+  nSmoothPatch 3;
+  tolerance 4.0;
+  nRelaxIter 5;
+  nFeatureSnapIter 10;
+}
+addLayersControls
+{
+  layers
+  {
+  atmosphere
+  {
+    nSurfaceLayers 3;
+  }
+  atmosphere2
+  {
+    nSurfaceLayers 3;
+  }
+  side
+  {
+    nSurfaceLayers 3;
+  }
+  walls
+  {
+    nSurfaceLayers 3;
+  }
+
+  }
+  relativeSizes true;
+  expansionRatio 1.0;
+  finalLayerThickness 0.3;
+  minThickness 0.03;
+  nGrow 1;
+  featureAngle 60;
+  nRelaxIter 5;
+  nSmoothSurfaceNormals 1;
+  nSmoothNormals 3;
+  nSmoothThickness 10;
+  maxFaceThicknessRatio 0.5;
+  maxThicknessToMedialRatio 0.3;
+  minMedianAxisAngle 130;
+  nBufferCellsNoExtrude 0;
+  nLayerIter 50;
+  nRelaxedIter 20;
+}
+meshQualityControls
+{
+  maxNonOrtho 65;
+  maxBoundarySkewness 20;
+  maxInternalSkewness 4;
+  maxConcave 80;
+  minFlatness 0.5;
+  minVol 1.00E-13;
+  minTetQuality -1e30;
+  minArea -1;
+  minTwist 0.05;
+  minDeterminant 0.001;
+  minFaceWeight 0.05;
+  minVolRatio 0.01;
+  minTriangleTwist -1;
+  nSmoothScale 4;
+  errorReduction 0.75;
+  relaxed
+  {
+    maxNonOrtho 180;
+  }
+}
+debug 0;
+mergeTolerance 1e-5;

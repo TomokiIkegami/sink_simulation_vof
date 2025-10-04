@@ -1,0 +1,22 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      surfaceFeaturesDict;
+}
+surfaces
+(
+    "atmosphere.stl"
+    "atmosphere2.stl"
+    "side.stl"
+    "walls.stl"
+);
+includedAngle 165.0;
+subsetFeatures
+{
+    nonManifoldEdges no;
+    openEdges yes;
+}
+writeObj yes;
